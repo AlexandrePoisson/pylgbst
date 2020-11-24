@@ -1,3 +1,14 @@
+# Fork
+Temporary for to allow the support of the train hub, will be merged later
+
+Only the hub.py is modified so far, by mostly copy pasting code. This could also be managed by moving some of the code in the Hub class
+There is also a test_train_hub.py which contains an example, which works on a Raspberry Pi 3
+
+
+
+# Original Readme below
+
+
 # Python library to interact with Move Hub / PoweredUp Hubs
 
 _Move Hub is central controller block of [LEGO® Boost Robotics Set](https://www.lego.com/themes/boost)._
