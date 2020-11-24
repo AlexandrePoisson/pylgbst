@@ -11,6 +11,7 @@ log = logging.getLogger('hub')
 
 PERIPHERAL_TYPES = {
     MsgHubAttachedIO.DEV_MOTOR: Motor,
+    MsgHubAttachedIO.DEV_SYSTEM_TRAIN_MOTOR: Motor,
     MsgHubAttachedIO.DEV_MOTOR_EXTERNAL_TACHO: EncodedMotor,
     MsgHubAttachedIO.DEV_MOTOR_INTERNAL_TACHO: EncodedMotor,
     MsgHubAttachedIO.DEV_VISION_SENSOR: VisionSensor,
