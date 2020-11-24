@@ -19,8 +19,6 @@ print("Goodbye")
 
 """
 Output
-Have not dedicated class for peripheral type 2 on port 0
-Have not dedicated class for peripheral type 2 on port 0
 Got only these devices: (Peripheral on port 0x0, None, None, LEDRGB on port 0x32, None, Current on port 0x3b, Voltage on port 0x3c)
 0
 50
