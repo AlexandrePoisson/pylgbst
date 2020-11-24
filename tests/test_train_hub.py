@@ -16,3 +16,15 @@ time.sleep(1)
 #hub.connection.notification_delayed('050082030a', 0.1)
 motor.stop() #here motor really stops
 print("Goodbye")
+
+"""
+Output
+Have not dedicated class for peripheral type 2 on port 0
+Have not dedicated class for peripheral type 2 on port 0
+Got only these devices: (Peripheral on port 0x0, None, None, LEDRGB on port 0x32, None, Current on port 0x3b, Voltage on port 0x3c)
+0
+50
+59
+60
+Goodbye
+"""
