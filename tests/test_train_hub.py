@@ -21,8 +21,8 @@ print("Goodbye")
 Output
 Got only these devices: (Peripheral on port 0x0, None, None, LEDRGB on port 0x32, None, Current on port 0x3b, Voltage on port 0x3c)
 0
-50
-59
-60
+50  => 0x32
+59  => 0x3B
+60  => 0x3C
 Goodbye
 """
