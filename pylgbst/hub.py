@@ -289,16 +289,12 @@ class TrainHub(Hub):
     Class implementing Lego TrainHub specifics
 
     :type led: LEDRGB
-    :type tilt_sensor: TiltSensor
     :type button: Button
     :type current: Current
     :type voltage: Voltage
     :type vision_sensor: pylgbst.peripherals.VisionSensor
-    :type port_C: Peripheral
-    :type port_D: Peripheral
-    :type motor_A: EncodedMotor
-    :type motor_B: EncodedMotor
-    :type motor_AB: EncodedMotor
+    :type port_A: Peripheral
+    :type port_B: Peripheral
     :type motor_external: EncodedMotor
     """
     
@@ -307,9 +303,7 @@ class TrainHub(Hub):
     # PORTS
     PORT_A = 0x00
     PORT_B = 0x01
-    PORT_AB = 0x10
     PORT_LED = 0x32
-    PORT_TILT_SENSOR = 0x3A
     PORT_CURRENT = 0x3B
     PORT_VOLTAGE = 0x3C
     
@@ -324,14 +318,12 @@ class TrainHub(Hub):
 
         # shorthand fields
         self.button = Button(self)
+        self.port_A = None
+        self.port_B = None
         self.led = None
         self.current = None
         self.voltage = None
-        self.motor_A = None
-        self.motor_B = None
-        self.motor_AB = None
         self.vision_sensor = None
-        self.tilt_sensor = None
         self.motor_external = None
 
         self._wait_for_devices()
@@ -339,8 +331,7 @@ class TrainHub(Hub):
 
     def _wait_for_devices(self, get_dev_set=None):
         if not get_dev_set:
-            get_dev_set = lambda: (self.motor_A, self.motor_B, self.motor_AB, self.led, self.tilt_sensor,
-                                   self.current, self.voltage)
+            get_dev_set = lambda: (self.led, self.current, self.voltage)
         for num in range(0, 100):
             devices = get_dev_set()
             if all(devices):
@@ -371,15 +362,11 @@ class TrainHub(Hub):
             if isinstance(msg, MsgHubAttachedIO) and msg.event != MsgHubAttachedIO.EVENT_DETACHED:
                 port = msg.port
                 if port == self.PORT_A:
-                    self.motor_A = self.peripherals[port]
+                    self.port_A = self.peripherals[port]
                 elif port == self.PORT_B:
-                    self.motor_B = self.peripherals[port]
-                elif port == self.PORT_AB:
-                    self.motor_AB = self.peripherals[port]
+                    self.port_B = self.peripherals[port]
                 elif port == self.PORT_LED:
                     self.led = self.peripherals[port]
-                elif port == self.PORT_TILT_SENSOR:
-                    self.tilt_sensor = self.peripherals[port]
                 elif port == self.PORT_CURRENT:
                     self.current = self.peripherals[port]
                 elif port == self.PORT_VOLTAGE:
@@ -388,5 +375,5 @@ class TrainHub(Hub):
                 if type(self.peripherals[port]) == VisionSensor:
                     self.vision_sensor = self.peripherals[port]
                 elif type(self.peripherals[port]) == EncodedMotor \
-                        and port not in (self.PORT_A, self.PORT_B, self.PORT_AB):
+                        and port not in (self.PORT_A, self.PORT_B):
                     self.motor_external = self.peripherals[port]
