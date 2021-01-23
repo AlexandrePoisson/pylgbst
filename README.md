@@ -7,6 +7,15 @@ Later on, we can manage the TrainHub by moving common of the code in the Hub cla
 
 There is also in this Fork a test_train_hub.py which contains an example and the ouput script, which works on a Raspberry Pi 3, but with warning messages that I will try to remove.
 
+# Installing this fork on a Jetson Nano
+
+    python3 setup.py install --user
+
+# Using the pygatt on Linux / Nano
+pip3 install pygatt --user
+
+90:84:2B:5F:33:35 as Technic Hub
+
 
 
 # Original Readme below
