@@ -26,16 +26,22 @@ This is not preventing some tests apps to control the motor. But because of this
 
 With that the flask server worked fine.
 
-On both Hub, I only tested the 
+On both Hub, I only tested:
+* connection to the hub
+* hub creation 
+* the start_power() and stop() methods for motors
+* disconnection 
 
 Later on, we can manage the TrainHub and TechnicHub by moving common of the code in the Hub class. Bu
 
 There is also in this Fork a test_train_hub.py which contains an example and the ouput script, which works on a Raspberry Pi 3, but with warning messages that I will try to remove.
 
-# Installing this fork on a Jetson Nano
+## Installing this fork on a Jetson Nano
+
     python3 setup.py install --user
 
-# Using the pygatt on Linux / Nano
+## Using the pygatt on Linux / Nano
+
     pip3 install pygatt --user
     
 Examples given are hardcoded with my Technic Hub and Train Hub.
