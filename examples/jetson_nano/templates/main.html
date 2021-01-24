@@ -1,55 +1,32 @@
-from flask import Flask, request, redirect, url_for, render_template, json, render_template_string, jsonify
-
-app = Flask(__name__)
-
-
-@app.route('/', methods=['GET', 'POST'])
-def control_panel():
-    print('request.form:', request.form)
-    
-    if request.method == 'POST':
-        if request.form.get('button') == 'button-play':
-            print("play button pressed")
-
-        elif request.form.get('button') == 'button-exit':
-            print("exit button pressed")
-
-
-        elif request.form.get('slide_direction') or request.form.get('slide_power'):
-            direction = request.form.get('slide_direction')
-            power = request.form.get('slide_power')
-            print('print direction:', direction,'print power:', power)
-            return json.dumps({'direction': direction,'power': power})
-
-    print('render')
-    return render_template_string('''<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+
 
     <title>Slider</title>
   </head>
   <body>
     <div class="container" id="control_panel_1">
-  <form action="/" method ="post" enctype="multipart/form-data" id="form">
-    <div class="row">
-            <div class="col">
-              <button class="btn btn-primary" button type="submit" name="button" value="button-play">PLAY</button>
+      <form action="/" method ="post" enctype="multipart/form-data" id="form">
+      <div class="row">
 
-              <button class="btn btn-primary" button type="submit" name="button" value="button-exit">EXIT</button>
+              <button class="btn btn-primary" button type="submit" name="button" value="button-play">Connect to Technic Hub</button>
+              <button class="btn btn-primary" button type="submit" name="button" value="button-exit">Disconnect from Technic Hub</button>
+              <div id="newline"></div>    
+              <input id="slide_direction" type="range" min="-80" max="80" step="10" value="0" name="slide_direction">
 
-              <input id="slide_direction" type="range" min="1" max="100" step="1" value="10" name="slide_direction">
+              <input id="slide_power" orient="vertical" type="range" min="-100" max="100" step="10" value="0" name="slide_power">
+              <div id="sliderAmount"></div>              
+<div id="sliderpowerAmount"></div>
 
-              <div id="sliderAmount"></div>
-              <input id="slide_power" type="range" min="1" max="100" step="1" value="10" name="slide_power">
-              <div id="sliderpowerAmount"></div>
-            </div>
-    </div>
+
+   </div>
+</div>
   </form>
 
     <!--- SCRIPTS --->
@@ -100,7 +77,4 @@ slide_power.onchange = function() {
 }
 
 </script>
-</html>''')
-
-if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False)
+</html>

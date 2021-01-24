@@ -138,7 +138,7 @@ class Hub(object):
         if dev_type in PERIPHERAL_TYPES:
             self.peripherals[port] = PERIPHERAL_TYPES[dev_type](self, port)
         else:
-            log.warning("Have not dedicated class for peripheral type %x on port %x", dev_type, port)
+            #log.warning("Have not dedicated class for peripheral type %x on port %x", dev_type, port)
             self.peripherals[port] = Peripheral(self, port)
 
         log.info("Attached peripheral: %s", self.peripherals[msg.port])
