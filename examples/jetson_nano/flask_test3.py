@@ -14,18 +14,12 @@ def control_panel():
         elif request.form.get('button') == 'button-exit':
             print("exit button pressed")
 
-        elif request.form.get('slide_direction'):
+
+        elif request.form.get('slide_direction') or request.form.get('slide_power'):
             direction = request.form.get('slide_direction')
-            print('direction:', direction)
-            #return jsonify({'volume': volume})
-            return json.dumps({'direction': direction})
-
-
-        elif request.form.get('slide_power'):
             power = request.form.get('slide_power')
-            print('power:', power)
-            #return jsonify({'volume': volume})
-            return json.dumps({'power': power})
+            print('print direction:', direction,'print power:', power)
+            return json.dumps({'direction': direction,'power': power})
 
     print('render')
     return render_template_string('''<!doctype html>
@@ -65,21 +59,16 @@ def control_panel():
 </body>
 <script>
   var slide_direction = document.getElementById('slide_direction'),
-    sliderDiv = document.getElementById("sliderAmount");
+    sliderDiv = document.getElementById('sliderAmount');
     
-
-  var slide_power = document.getElementById('slide_power'),
-    sliderpowerDiv = document.getElementById("sliderpowerAmount"); 
-
 slide_direction.onchange = function() {
     sliderDiv.innerHTML = this.value;
     $.post({
             url: '/',
             data: $('form').serialize(),
             success: function(response){
-                alert(response);
-                alert(response.direction);             // works with jsonify()
-                alert(JSON.parse(response).direction); // works with json.dumps()
+                //alert(response);
+                //alert(JSON.parse(response).direction); // works with json.dumps()
                 console.log(response);
             },
             error: function(error){
@@ -88,16 +77,19 @@ slide_direction.onchange = function() {
             }
         });
 }
+</script>
+<script>
 
+  var slide_power = document.getElementById('slide_power'),
+    sliderpowerDiv = document.getElementById('sliderpowerAmount'); 
 slide_power.onchange = function() {
     sliderpowerDiv.innerHTML = this.value;
     $.post({
             url: '/',
             data: $('form').serialize(),
             success: function(response){
-                alert(response);
-                alert(response.power);             // works with jsonify()
-                alert(JSON.parse(response).power); // works with json.dumps()
+                //alert(response);
+                //alert(JSON.parse(response).power); // works with json.dumps()
                 console.log(response);
             },
             error: function(error){
