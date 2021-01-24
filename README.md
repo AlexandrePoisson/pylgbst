@@ -9,13 +9,24 @@ TrainHub might be seen as MoveHub, with less port and less features. To support 
 
 
 TechnicHub might be seen as MoveHub, with less port and less features. To support it, only the hub.py is modified so far, by mostly copy pasting code from MoveHub
-When initizaling connection with the TechnicHub, I got a messages: 
-    Have not dedicated class for peripheral type 3e on port 1"
-    Have not dedicated class for peripheral type 3f on port 3"
-    ....
+When initizaling connection with the TechnicHub, I got a messages:
 
-Because of this message, the Flask server was raising and exception. I commented the line:
+    Have not dedicated class for peripheral type 2e on port 1
+    Have not dedicated class for peripheral type 2f on port 3
+    Have not dedicated class for peripheral type 3c on port 3d
+    Have not dedicated class for peripheral type 3c on port 60
+    Have not dedicated class for peripheral type 39 on port 61
+    Have not dedicated class for peripheral type 3a on port 62
+    Have not dedicated class for peripheral type 3b on port 63
+    Have not dedicated class for peripheral type 36 on port 64
+
+This is not preventing some tests apps to control the motor. But because of this message, the Flask server was raising and exception. I commented the line in hub.py:
+
     log.warning("Have not dedicated class for peripheral type %x on port %x", dev_type, port)
+
+With that the flask server worked fine.
+
+On both Hub, I only tested the 
 
 Later on, we can manage the TrainHub and TechnicHub by moving common of the code in the Hub class. Bu
 
