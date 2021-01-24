@@ -1,24 +1,38 @@
-# Fork
-Temporary Fork to allow the support of the Lego Powered Up Train hub. Will be merged later in the main pylgbst branch.
+# README of this Fork
+Temporary Fork to allow the support of 
+* the Lego Powered Up Train hub
+* the Lego Power Up hub
 
-TrainHub might be seen as MoveHub, with less port and less features. To support it, Only the hub.py is modified so far, by mostly copy pasting code from MoveHub. 
-For the Train Motor, using the Motor() class is working fine so far.
-Later on, we can manage the TrainHub by moving common of the code in the Hub class
+This fork will be merged later in the main pylgbst branch if the author accepts.
+
+TrainHub might be seen as MoveHub, with less port and less features. To support it, only the hub.py is modified so far, by mostly copy pasting code from MoveHub. For the Train Motor, using the Motor() class is working fine so far.
+
+
+TechnicHub might be seen as MoveHub, with less port and less features. To support it, only the hub.py is modified so far, by mostly copy pasting code from MoveHub
+When initizaling connection with the TechnicHub, I got a messages: 
+    Have not dedicated class for peripheral type 3e on port 1"
+    Have not dedicated class for peripheral type 3f on port 3"
+    ....
+
+Because of this message, the Flask server was raising and exception. I commented the line:
+    log.warning("Have not dedicated class for peripheral type %x on port %x", dev_type, port)
+
+Later on, we can manage the TrainHub and TechnicHub by moving common of the code in the Hub class. Bu
 
 There is also in this Fork a test_train_hub.py which contains an example and the ouput script, which works on a Raspberry Pi 3, but with warning messages that I will try to remove.
 
 # Installing this fork on a Jetson Nano
-
     python3 setup.py install --user
 
 # Using the pygatt on Linux / Nano
-pip3 install pygatt --user
-
+    pip3 install pygatt --user
+    
+Examples given are hardcoded with my Technic Hub and Train Hub.
 90:84:2B:5F:33:35 as Technic Hub
 
 
 
-# Original Readme below
+# Original README below
 
 
 # Python library to interact with Move Hub / PoweredUp Hubs
