@@ -7,7 +7,6 @@ This fork will be merged later in the main pylgbst branch if the author accepts.
 
 TrainHub might be seen as MoveHub, with less port and less features. To support it, only the hub.py is modified so far, by mostly copy pasting code from MoveHub. For the Train Motor, using the Motor() class is working fine so far.
 
-
 TechnicHub might be seen as MoveHub, with less port and less features. To support it, only the hub.py is modified so far, by mostly copy pasting code from MoveHub
 When initizaling connection with the TechnicHub, I got a messages:
 
@@ -40,9 +39,13 @@ There is also in this Fork a test_train_hub.py which contains an example and the
 
     python3 setup.py install --user
 
-## Using the pygatt on Linux / Nano
+## Using the pygatt on Linux / Jetson Nano
+After testing some of the connections alternative :
+bluepy requires python 3.7 to run asyncio command
+pygatt requires sudo
+So i decided to move with gatt
 
-    pip3 install pygatt --user
+    pip install gatt
     
 Examples given are hardcoded with my Technic Hub and Train Hub.
 90:84:2B:5F:33:35 as Technic Hub
@@ -112,27 +115,27 @@ Each peripheral kind has own methods to do actions and/or get sensor data. See [
 You have following options to install as Bluetooth backend (some of them might require `sudo` on Linux):
 
 - `pip install pygatt` - [pygatt](https://github.com/peplin/pygatt) lib, works on both Windows and Linux  
-- `pip install gatt` - [gatt](https://github.com/getsenic/gatt-python) lib, supports Linux, does not work on Windows
+- `pip install gatt` - [gatt](https://github.com/getsenic/gatt-python) lib, supports Linux, does not work on Windows, does not require `sudo`
 - `pip install gattlib` - [gattlib](https://bitbucket.org/OscarAcena/pygattlib) - supports Linux, does not work on Windows, requires `sudo`
 - `pip install bluepy` - [bluepy](https://github.com/IanHarvey/bluepy) lib, supports Linux, including Raspbian, which allows connection to the hub from the Raspberry PI
-- `pip install bleak` - [bleak](https://github.com/hbldh/bleak) lib, supports Linux/Windows/MacOS
+- `pip install bleak` - [bleak](https://github.com/hbldh/bleak) lib, supports Linux/Windows/MacOS, requires Python 3.7 for asyncio.run command
 
 Running on Windows requires [Bluegiga BLED112 Bluetooth Smart Dongle](https://www.silabs.com/products/wireless/bluetooth/bluetooth-low-energy-modules/bled112-bluetooth-smart-dongle) hardware piece, because no other hardware currently works on Windows with Python+BLE.
 
 _Please let author know if you have discovered any compatibility/preprequisite details, so we will update this section to help future users_
 
-Depending on backend type, you might need Linux `sudo` to be used when running Python.
+Depending on backend type, you might need Linux `sudo` to be used when running Python. gatt does not requires sudo.
 
 ### Bluetooth Connection Options
 There is an optional parameter for `MoveHub` class constructor, accepting instance of `Connection` object. By default, it will try to use whatever `get_connection_auto()` returns. You have several options to manually control that:
 
 - use `get_connection_auto()` to attempt backend auto-detection 
 - use `get_connection_bluegiga()` - if you use BlueGiga Adapter (`pygatt` library prerequisite)
-- use `get_connection_gatt()` - if you use Gatt Backend on Linux (`gatt` library prerequisite)
+- use `get_connection_gatt()` - if you use Gatt Backend on Linux (`gatt` library prerequisite, no sudo)
 - use `get_connection_gattool()` - if you use GattTool Backend on Linux (`pygatt` library prerequisite)
 - use `get_connection_gattlib()` - if you use GattLib Backend on Linux (`gattlib` library prerequisite)
-- use `get_connection_bluepy()` - if you use Bluepy backend on Linux/Raspbian (`bluepy` library prerequisite)
-- use `get_connection_bleak()` - if you use Bleak backend (`bleak` library prerequisite)
+- use `get_connection_bluepy()` - if you use Bluepy backend on Linux/Raspbian (`bluepy` library prerequisite, Python 3.7 prerequisite for asyncio.run command)
+- use `get_connection_bleak()` - if you use Bleak backend (`bleak` library prerequisite, sudo)
 - pass instance of `DebugServerConnection` if you are using [Debug Server](#debug-server) (more details below).
 
 All the functions above have optional arguments to specify adapter name and Hub name (or mac address). Please take a look at functions source code for details.

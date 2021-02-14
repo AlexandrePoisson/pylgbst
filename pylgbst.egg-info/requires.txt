@@ -6,13 +6,13 @@ bleak
 bluepy
 
 [gatt]
-dbus
 gatt
+dbus
 gi
 
 [gattlib]
 gattlib
 
 [pygatt]
-pexpect
 pygatt
+pexpect
